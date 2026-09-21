@@ -1,0 +1,42 @@
+D:\Ahmad-Fikri-Jundana\pemrograman web\fullstack\fullstackv1-nodejs
+buat folder backend
+-pastikan node.js dan npm terinstall node -v, npm -v
+-masuk kedalam folder backend , install npm init -y, kalo berhasil ada file baru Bernama package.json
+
+-install beberapa dependency
+npm i express mysql2 sequelize cors
+
+buat file index.js di dalam project.
+
+-install nodemon
+npm i -g nodemon
+jalankan nodemone  > nodemon index
+kalo error, ganti di line 12 pada package.json dari type "commonjs" ke "module"
+
+
+pastikan MySQL dan apache running di laragon/xampp
+buat folder baru, config, dalamnya file Database.js
+
+
+buat database nya
+
+setting phpMyAdmin(biar bisa dibuka di browser)
+download phpMyAdmin-5.2xxx, extract file zip, rename ke phpMyAdmin.
+pindahkan ke laragon/etc/apps/ ke sini
+buka di browser localhost/phpMyAdmin > user : root, password: (kosong)
+
+
+
+buat database penjualan dari browser(localhost/phpMyAdmin) 
+
+
+buat folder models, ProductModels.js
+
+buat folder controllers, ProductControllers.js
+
+buat folder routes, ProductRoute.js
+
+install extension vs code REST Client
+
+buat file baru request.rest
+

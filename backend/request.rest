@@ -1,0 +1,103 @@
+#CRUD : Menampilkan seluruh data produk
+GET http://localhost:3000/product
+
+#CRUD : Menampilkan data berdasarkan id
+###
+GET http://localhost:3000/product/2
+
+
+#CRUD : menambah data
+###
+POST http://localhost:3000/product
+Content-Type: application/json
+
+{
+  "namaproduct":"kopi",
+  "harga": "16000",
+  "kategori": "makanan",
+  "stok": "20"
+}
+
+#CRUD : Mengubah data berdasarkan id
+###
+PATCH http://localhost:3000/product/9
+Content-Type: application/json
+
+{
+  "namaproduct":"kopi",
+  "harga":"10000",
+  "kategori": "minuman",
+  "stok": "20"
+}
+
+#CRUD : Menghapus data berdasarkan id
+###
+DELETE http://localhost:3000/product/6
+
+###
+
+#menampilkan product berdasarkan kategori
+GET http://localhost:3000/product/kategori/makanan
+
+
+#menampilkan produk berdasarkan nama produk dan membatasi berdasarkan harga maksimum
+###
+GET http://localhost:3000/product/search?nama=kopi&maxHarga=20000
+
+#Soal 3 Validasi dan pengelolaan stok produk
+###
+PATCH http://localhost:3000/product/2/stok
+Content-Type: application/json
+
+{
+  "stock" :-0
+}
+
+
+######
+#KARYAWAN
+#######
+GET http://localhost:3000/karyawans/
+
+###
+GET http://localhost:3000/karyawans/4
+
+
+###
+GET http://localhost:3000/karyawans/jabatan/ketua
+
+###
+POST http://localhost:3000/karyawans
+Content-Type: application/json
+
+{
+  "idKar": "000001",
+  "nama": "fadil jaidi",
+  "jeniskelamin": "laki-laki",
+  "jabatan": "ketua",
+  "pendidikan": "D3"
+}
+
+###
+PATCH http://localhost:3000/karyawans/4
+Content-Type: application/json
+
+{
+  "idKar": "00005",
+  "nama": "Taqiyah",
+  "jeniskelamin": "Perempuan",
+  "jabatan": "Bendahara",
+  "pendidikan": "S1",
+  "gaji": 7000000
+}
+
+###
+DELETE http://localhost:3000/karyawans/
+
+###
+PATCH http://localhost:3000/karyawans/gaji/5
+Content-Type: application/json
+
+{
+  "gaji": 14000000
+}
