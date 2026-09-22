@@ -18,7 +18,7 @@ const KaryawanTable = ({ loading, karyawans, onDelete }) => {
           {loading ? (
             <tr>
               <td className="px-4 py-4 text-center" colSpan={6}>
-                Loading
+                <span className="loading loading-spinner loading-md align-middle"></span>
               </td>
             </tr>
           ) : karyawans.length === 0 ? (
@@ -38,7 +38,7 @@ const KaryawanTable = ({ loading, karyawans, onDelete }) => {
                 </td>
                 <td className="px-4 py-4 text-slate-500">{karyawan.namakaryawan}</td>
                 <td className="px-4 py-4 text-slate-500">
-                  Rp {Number(karyawan.jeniskelamin).toLocaleString("id-ID")}
+                  {karyawan.jeniskelamin}
                 </td>
                 <td className="px-4 py-4 text-slate-500">{karyawan.pendidikan}</td>
                 <td className="px-4 py-4 flex gap-3 justify-center">

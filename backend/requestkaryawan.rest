@@ -1,0 +1,37 @@
+######
+#KARYAWAN
+#######
+GET http://localhost:3000/karyawans/
+
+###
+GET http://localhost:3000/karyawans/6
+
+
+##
+
+###
+POST http://localhost:3000/karyawans
+Content-Type: application/json
+
+{
+  "nomorkaryawan": "000005",
+  "namakaryawan": "Gyenisa Syofia",
+  "jeniskelamin": "Perempuan",
+  "pendidikan": "S1"
+}
+
+###
+PATCH http://localhost:3000/karyawans/2
+Content-Type: application/json
+
+{
+  "nomorkaryawan": "00005",
+  "namakaryawan": "Taqiyah",
+  "jeniskelamin": "Perempuan",  
+  "pendidikan": "S1"  
+}
+
+###
+DELETE http://localhost:3000/karyawans/
+
+###

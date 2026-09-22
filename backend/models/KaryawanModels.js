@@ -17,5 +17,8 @@ export default Karyawans;
 
 // buat function untuk membaca tabel, gunakan async
 // (async() => {
-//   await db.sync({alter: true})
+//   await db.sync
+// ({alter: true})
 // })();
+
+// 

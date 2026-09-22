@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import CreateProduct from "./pages/CreateProduct";
 import EditProduct from "./pages/EditProduct";
+import KaryawanPage from "./pages/KaryawanPage";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/products/:id/edit" element={<EditProduct />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/karyawans" element={<KaryawanPage />} />
       </Routes>
     </BrowserRouter>
     </div>
