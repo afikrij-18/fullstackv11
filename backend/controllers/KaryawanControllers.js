@@ -31,7 +31,7 @@ export const getKaryawansById = async(req, res) => {
 // menambahkan data karyawan
 export const createKaryawan = async(req, res) => {
   try {
-    // const { idKar, nama, jeniskelamin, jabatan, pendidikan } = req.body;
+    // const { nomorkaryawan, nama, jeniskelamin, jabatan, pendidikan } = req.body;
     await Karyawans.create(req.body);
     res.status(201).json({ msg : "New Karyawan Added"});
 
@@ -40,7 +40,7 @@ export const createKaryawan = async(req, res) => {
   }
 }
 
-// mengedit karyawan berdasarkan idKar
+// mengedit karyawan berdasarkan nomorkaryawan
 export const updateKaryawan = async(req, res) => {
   try {
     await Karyawans.update(req.body, {

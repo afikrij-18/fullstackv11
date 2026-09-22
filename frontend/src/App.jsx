@@ -15,7 +15,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" Component={Home} />
-        <Route path="/products/create" element={<CreateProduct />} />
+        <Route path="/products/create" element={<CreateProduct />} />        
         <Route path="/products/:id/edit" element={<EditProduct />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/profile" element={<ProfilePage />} />

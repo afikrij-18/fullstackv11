@@ -4,12 +4,11 @@ import { db } from "../config/Database.js";
 const { DataTypes } = Sequelize;
 
 const Karyawans = db.define('karyawans', {
-  idKar: DataTypes.STRING,
-  nama: DataTypes.STRING,
+  nomorkaryawan: DataTypes.STRING,
+  namakaryawan: DataTypes.STRING,
   jeniskelamin: DataTypes.STRING,
-  jabatan: DataTypes.STRING,
   pendidikan: DataTypes.STRING,
-  gaji:DataTypes.FLOAT
+  
 }, {
   freezeTableName: true
 });

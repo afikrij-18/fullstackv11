@@ -12,19 +12,19 @@ POST http://localhost:3000/product
 Content-Type: application/json
 
 {
-  "namaproduct":"kopi",
-  "harga": "16000",
-  "kategori": "makanan",
-  "stok": "20"
+  "namaproduct":"Kopipo",
+  "harga": 1,
+  "kategori": "minuman",
+  "stok": 8
 }
 
 #CRUD : Mengubah data berdasarkan id
 ###
-PATCH http://localhost:3000/product/9
+PATCH http://localhost:3000/product/
 Content-Type: application/json
 
 {
-  "namaproduct":"kopi",
+  "namaproduct":"",
   "harga":"10000",
   "kategori": "minuman",
   "stok": "20"
@@ -60,44 +60,34 @@ Content-Type: application/json
 GET http://localhost:3000/karyawans/
 
 ###
-GET http://localhost:3000/karyawans/4
+GET http://localhost:3000/karyawans/6
 
 
-###
-GET http://localhost:3000/karyawans/jabatan/ketua
+##
 
 ###
 POST http://localhost:3000/karyawans
 Content-Type: application/json
 
 {
-  "idKar": "000001",
-  "nama": "fadil jaidi",
+  "nomorkaryawan": "000001",
+  "namakaryawan": "fadil jaidi",
   "jeniskelamin": "laki-laki",
-  "jabatan": "ketua",
   "pendidikan": "D3"
 }
 
 ###
-PATCH http://localhost:3000/karyawans/4
+PATCH http://localhost:3000/karyawans/2
 Content-Type: application/json
 
 {
-  "idKar": "00005",
-  "nama": "Taqiyah",
-  "jeniskelamin": "Perempuan",
-  "jabatan": "Bendahara",
-  "pendidikan": "S1",
-  "gaji": 7000000
+  "nomorkaryawan": "00005",
+  "namakaryawan": "Taqiyah",
+  "jeniskelamin": "Perempuan",  
+  "pendidikan": "S1"  
 }
 
 ###
 DELETE http://localhost:3000/karyawans/
 
 ###
-PATCH http://localhost:3000/karyawans/gaji/5
-Content-Type: application/json
-
-{
-  "gaji": 14000000
-}
