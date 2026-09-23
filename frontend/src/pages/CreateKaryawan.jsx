@@ -1,8 +1,242 @@
-import { useNavigate } from "react-router"
+import { useState } from "react";
+import { Link, useNavigate } from "react-router";
 
+// Pastikan kamu memiliki fungsi createKaryawan di karyawanService.js
+import { createKaryawans, getKaryawans } from "../services/karyawanService"; 
 
 const CreateKaryawan = () => {
-	const navigate = useNavigate();
+  const navigate = useNavigate();
 
-	
+  // State disesuaikan dengan field Karyawan
+  const [form, setForm] = useState({
+    nomorkaryawan: "",
+    namakaryawan: "",
+    jeniskelamin: "",
+    pendidikan: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({});
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+
+    // hapus pesan error per field saat pengguna mulai mengetik/memilih
+    if (fieldErrors[name]) {
+      setFieldErrors({ ...fieldErrors, [name]: "" });
+    }
+  }
+
+  function validateForm() {
+    const errors = {};
+    const regexTanpaSimbol = /^[-a-zA-Z0-9 ]+$/;
+
+    // Validasi Nomor Karyawan
+    if (!form.nomorkaryawan.trim()) {
+      errors.nomorkaryawan = "Nomor karyawan tidak boleh kosong";
+    } else if (form.nomorkaryawan.trim().length < 3) {
+      errors.nomorkaryawan = "Nomor karyawan minimal 3 karakter";
+    }
+
+    // Validasi Nama Karyawan
+    if (!form.namakaryawan.trim()) {
+      errors.namakaryawan = "Nama karyawan tidak boleh kosong";
+    } else if (form.namakaryawan.trim().length <= 2) {
+      errors.namakaryawan = "Nama karyawan minimal 3 karakter";
+    } else if (!regexTanpaSimbol.test(form.namakaryawan.trim())) {
+      errors.namakaryawan = "Nama karyawan tidak boleh mengandung simbol khusus";
+    }
+
+    // Validasi Jenis Kelamin (Karena pakai select, kita pastikan tidak kosong)
+    if (!form.jeniskelamin) {
+      errors.jeniskelamin = "Jenis kelamin wajib dipilih";
+    }
+
+    // Validasi Pendidikan
+    if (!form.pendidikan) {
+      errors.pendidikan = "Pendidikan wajib dipilih";
+    }
+
+    return errors;
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    // 1. Jalankan validasi lokal sebelum hit API (cek form kosong, simbol, dll)
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setFieldErrors(validationErrors);
+      return;
+    }
+    
+    try {
+      setLoading(true);
+      setError("");
+
+      // --- 2. VALIDASI FRONTEND: CEK DUPLIKAT SEBELUM SIMPAN ---
+      // Pastikan kamu sudah meng-import getKaryawans di bagian atas file
+      const existingData = await getKaryawans();
+      
+      const isDuplicate = existingData.some(
+        (k) => k.nomorkaryawan.toLowerCase() === form.nomorkaryawan.toLowerCase()
+      );
+
+      if (isDuplicate) {
+        // Tampilkan error di bawah input nomor karyawan
+        setFieldErrors({
+          nomorkaryawan: "Nomor karyawan ini sudah terdaftar! Gunakan nomor lain."
+        });
+        setLoading(false); // Hentikan efek loading
+        return; // Hentikan eksekusi, jangan panggil createKaryawans
+      }
+      // ---------------------------------------------------------
+
+      // 3. Jika aman dari duplikat, lanjutkan simpan data
+      await createKaryawans(form);
+
+      alert("Data Karyawan berhasil ditambahkan");
+      navigate("/karyawans"); 
+
+    } catch (error) {
+      // --- 4. VALIDASI BACKEND: MENANGKAP ERROR DARI CONTROLLER ---
+      // Jika backend mengirimkan status 400 beserta pesan error spesifik
+      if (error.response && error.response.data && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        // Error umum jika server mati atau masalah jaringan
+        setError("Terjadi kesalahan saat menambah data karyawan");
+      }
+    } finally {
+      setLoading(false);
+    }
 }
+
+  return (
+    <div className="min-h-screen bg-gray-100">
+      <div className="max-w-6xl mx-auto p-10 ">
+        <h1 className="text-xl font-bold mb-8 text-gray-800">
+          Form Tambah Karyawan
+        </h1>
+        <div className="w-1/2 ">
+          {error && (
+            <div className="bg-red-100 text-red-700 border border-red-300 rounded p-3 mb-5">
+              {error}
+            </div>
+          )}
+          <form onSubmit={handleSubmit}>
+            
+            {/* Input Nomor Karyawan */}
+            <div className="flex flex-col gap-1 mb-3">
+              <label htmlFor="nomorkaryawan" className="floating-label pb-3">
+                <input
+                  type="text"
+                  name="nomorkaryawan"
+                  id="nomorkaryawan"
+                  placeholder="Nomor Karyawan"
+                  className="input input-md w-full"
+                  value={form.nomorkaryawan}
+                  onChange={handleChange}
+                  required
+                />
+                <span>Nomor Karyawan (Misal: K001)</span>
+              </label>
+              {fieldErrors.nomorkaryawan && (
+                <span className="bg-red-100 text-sm text-red-700 border border-red-300 rounded p-3 mt-1">
+                  {fieldErrors.nomorkaryawan}
+                </span>
+              )}
+            </div>
+
+            {/* Input Nama Karyawan */}
+            <div className="flex flex-col gap-1 mb-3">
+              <label htmlFor="namakaryawan" className="floating-label pb-3">
+                <input
+                  type="text"
+                  name="namakaryawan"
+                  id="namakaryawan"
+                  placeholder="Nama Karyawan"
+                  className="input input-md w-full"
+                  value={form.namakaryawan}
+                  onChange={handleChange}
+                  required
+                />
+                <span>Nama Karyawan</span>
+              </label>
+              {fieldErrors.namakaryawan && (
+                <span className="bg-red-100 text-sm text-red-700 border border-red-300 rounded p-3 mt-1">
+                  {fieldErrors.namakaryawan}
+                </span>
+              )}
+            </div>
+
+            {/* Select Jenis Kelamin */}
+            <div className="flex flex-col gap-1 mb-4">
+              <label htmlFor="jeniskelamin" className="text-sm text-gray-600 mb-1 ml-1">Jenis Kelamin</label>
+              <select
+                name="jeniskelamin"
+                id="jeniskelamin"
+                className="select select-bordered w-full"
+                value={form.jeniskelamin}
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled>Pilih Jenis Kelamin</option>
+                <option value="Laki-laki">Laki-laki</option>
+                <option value="Perempuan">Perempuan</option>
+              </select>
+              {fieldErrors.jeniskelamin && (
+                <span className="bg-red-100 text-sm text-red-700 border border-red-300 rounded p-3 mt-1">
+                  {fieldErrors.jeniskelamin}
+                </span>
+              )}
+            </div>
+
+            {/* Select Pendidikan */}
+            <div className="flex flex-col gap-1 mb-6">
+              <label htmlFor="pendidikan" className="text-sm text-gray-600 mb-1 ml-1">Pendidikan</label>
+              <select
+                name="pendidikan"
+                id="pendidikan"
+                className="select select-bordered w-full"
+                value={form.pendidikan}
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled>Pilih Pendidikan</option>
+                <option value="SMA">SMA</option>
+                <option value="D3">D3</option>
+                <option value="S1">S1</option>
+                <option value="S2">S2</option>
+                <option value="S3">S3</option>
+              </select>
+              {fieldErrors.pendidikan && (
+                <span className="bg-red-100 text-sm text-red-700 border border-red-300 rounded p-3 mt-1">
+                  {fieldErrors.pendidikan}
+                </span>
+              )}
+            </div>
+
+            <div className="flex gap-x-3 justify-start">
+              <Link className="btn btn-neutral btn-dash" to={"/karyawans"}>
+                Batal
+              </Link>
+
+              <button
+                type="submit"
+                className="btn btn-outline btn-primary"
+                disabled={loading}
+              >
+                {loading ? "Menyimpan..." : "Tambah Data"}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CreateKaryawan;

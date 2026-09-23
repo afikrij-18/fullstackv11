@@ -19,6 +19,7 @@ const KaryawanTable = ({ loading, karyawans, onDelete }) => {
             <tr>
               <td className="px-4 py-4 text-center" colSpan={6}>
                 <span className="loading loading-spinner loading-md align-middle"></span>
+                <p>Memuat data ...</p>
               </td>
             </tr>
           ) : karyawans.length === 0 ? (
@@ -36,11 +37,15 @@ const KaryawanTable = ({ loading, karyawans, onDelete }) => {
                 <td className="px-4 py-4 text-slate-500">
                   {karyawan.nomorkaryawan}
                 </td>
-                <td className="px-4 py-4 text-slate-500">{karyawan.namakaryawan}</td>
+                <td className="px-4 py-4 text-slate-500">
+                  {karyawan.namakaryawan}
+                </td>
                 <td className="px-4 py-4 text-slate-500">
                   {karyawan.jeniskelamin}
                 </td>
-                <td className="px-4 py-4 text-slate-500">{karyawan.pendidikan}</td>
+                <td className="px-4 py-4 text-slate-500">
+                  {karyawan.pendidikan}
+                </td>
                 <td className="px-4 py-4 flex gap-3 justify-center">
                   <Link
                     to={`/karyawans/${karyawan.id}/edit`}
@@ -48,13 +53,19 @@ const KaryawanTable = ({ loading, karyawans, onDelete }) => {
                   >
                     Edit
                   </Link>
-                  
+
                   <button
                     className="btn btn-outline btn-error"
                     onClick={() => onDelete(karyawan.id)}
                   >
                     Delete
                   </button>
+                  <Link
+                    to={`/karyawans/${karyawan.id}`}
+                    className="btn btn-outline btn-info"
+                  >
+                    Detail
+                  </Link>
                 </td>
               </tr>
             ))

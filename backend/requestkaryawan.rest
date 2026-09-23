@@ -14,10 +14,10 @@ POST http://localhost:3000/karyawans
 Content-Type: application/json
 
 {
-  "nomorkaryawan": "000005",
-  "namakaryawan": "Gyenisa Syofia",
-  "jeniskelamin": "Perempuan",
-  "pendidikan": "S1"
+  "nomorkaryawan": "00005",
+  "namakaryawan": "Gyenisa",
+  "jeniskelamin": "perempuan",
+  "pendidikan": "S3"
 }
 
 ###
@@ -25,9 +25,9 @@ PATCH http://localhost:3000/karyawans/2
 Content-Type: application/json
 
 {
-  "nomorkaryawan": "00005",
-  "namakaryawan": "Taqiyah",
-  "jeniskelamin": "Perempuan",  
+  "nomorkaryawan": "00003",
+  "namakaryawan": "Rizqon Noval",
+  "jeniskelamin": "laki-laki",  
   "pendidikan": "S1"  
 }
 

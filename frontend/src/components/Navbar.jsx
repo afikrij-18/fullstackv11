@@ -7,10 +7,10 @@ function Navbar() {
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1 gap-4">
           <li>
-            <a href="/about">About</a>
+            <a href="/karyawans">Karyawan</a>
           </li>
           <li>
-            <a href="profile">Profile</a>
+            <a href="/laporan">Laporan</a>
           </li>
           
         </ul>

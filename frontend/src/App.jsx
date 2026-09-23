@@ -7,6 +7,10 @@ import Home from "./pages/Home";
 import CreateProduct from "./pages/CreateProduct";
 import EditProduct from "./pages/EditProduct";
 import KaryawanPage from "./pages/KaryawanPage";
+import CreateKaryawan from "./pages/CreateKaryawan";
+import EditKaryawan from "./pages/EditKaryawan";
+import ReportKaryawans from "./pages/ReportKaryawans";
+import DetailKaryawan from "./pages/DetailKaryawan";
 
 
 function App() {
@@ -18,9 +22,13 @@ function App() {
         <Route path="/" Component={Home} />
         <Route path="/products/create" element={<CreateProduct />} />        
         <Route path="/products/:id/edit" element={<EditProduct />} />
+        <Route path="/karyawans" element={<KaryawanPage />} />
+        <Route path="/karyawans/create" element={<CreateKaryawan />} />        
+        <Route path="/karyawans/:id/edit" element={<EditKaryawan />} />
+        <Route path="/laporan" element={<ReportKaryawans />} />
+        <Route path="/karyawans/:id" element={<DetailKaryawan />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/karyawans" element={<KaryawanPage />} />
       </Routes>
     </BrowserRouter>
     </div>

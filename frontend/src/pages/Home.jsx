@@ -7,7 +7,7 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  
+
   // State untuk pencarian teks & filter kategori
   const [search, setSearch] = useState("");
   const [selectedKategori, setSelectedKategori] = useState("");
@@ -28,7 +28,9 @@ const Home = () => {
   const categories = useMemo(() => {
     if (!Array.isArray(products)) return [];
     // Mengambil nilai kategori dan menghilangkan duplikat
-    const uniqueCategories = [...new Set(products.map((p) => p.kategori).filter(Boolean))];
+    const uniqueCategories = [
+      ...new Set(products.map((p) => p.kategori).filter(Boolean)),
+    ];
     return uniqueCategories;
   }, [products]);
 
@@ -40,10 +42,12 @@ const Home = () => {
 
     return products.filter((product) => {
       // Pengecekan teks nama produk
-      const matchSearch = !keyword || product.namaproduct?.toLowerCase().includes(keyword);
+      const matchSearch =
+        !keyword || product.namaproduct?.toLowerCase().includes(keyword);
 
       // Pengecekan dropdown kategori
-      const matchKategori = !selectedKategori || product.kategori === selectedKategori;
+      const matchKategori =
+        !selectedKategori || product.kategori === selectedKategori;
 
       // Harus memenuhi kedua kondisi
       return matchSearch && matchKategori;
@@ -109,7 +113,7 @@ const Home = () => {
             >
               {/* Option untuk menampilkan semua kategori */}
               <option value="">Semua Kategori</option>
-              
+
               {/* Opsi dinamis dari database */}
               {categories.map((kat, index) => (
                 <option key={index} value={kat}>
@@ -118,8 +122,6 @@ const Home = () => {
               ))}
             </select>
           </div>
-
-         
         </div>
 
         {/* Tabel Produk */}
